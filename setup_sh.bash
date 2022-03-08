@@ -8,5 +8,6 @@ mkdir -p $SCRIPT_DIR/$OLD_CONFIG_DIR/$DATETIME
 
 mv ~/.tmux.conf $SCRIPT_DIR/$OLD_CONFIG_DIR/$DATETIME
 mv ~/.bash_aliases $SCRIPT_DIR/$OLD_CONFIG_DIR/$DATETIME
+mv ~/.vimrc $SCRIPT_DIR/$OLD_CONFIG_DIR/$DATETIME
 
-ln -s $SCRIPT_DIR/.tmux.conf $SCRIPT_DIR/.bash_aliases ~
+ln -s $SCRIPT_DIR/.tmux.conf $SCRIPT_DIR/.bash_aliases $SCRIPT_DIR/.vimrc ~
