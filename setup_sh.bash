@@ -6,14 +6,19 @@ DATETIME=$(date +%F__%H_%M_%S)
 
 shopt -s dotglob
 
-sudo apt install -y tmux xclip vim 
+sudo apt install -y tmux xclip vim xterm
 
 mkdir -p $SCRIPT_DIR/$OLD_CONFIG_DIR/$DATETIME
 
+# TODO: Add config directories like .vim
+
 for FILE in $CURRENT_CONFIG_DIR/*; do
         [ -e "$FILE" ] || continue
-        echo "Updating: $FILE..."
-        mv ~/$FILE $SCRIPT_DIR/$OLD_CONFIG_DIR/$DATETIME
-        ln -s $SCRIPT_DIR/$CURRENT_CONFIG_DIR/$FILE ~
+        FILE_BASE=$(basename $FILE)
+        echo "Updating: $FILE_BASE..."
+        mv ~/$FILE_BASE $SCRIPT_DIR/$OLD_CONFIG_DIR/$DATETIME
+        ln -s $SCRIPT_DIR/$FILE ~
 done
+
+xrdb -merge ~/.Xresources
 
