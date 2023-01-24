@@ -13,20 +13,25 @@ mkdir -p $SCRIPT_DIR/$OLD_CONFIG_DIR/$DATETIME
 # TODO: Add config directories like .vim
 
 for FILE in $CURRENT_CONFIG_DIR/*; do
-        [ -e "$FILE" ] || continue
         FILE_BASE=$(basename $FILE)
         echo "Updating: $FILE_BASE..."
-        FILE_HOME="~/$FILE_BASE"
+        FILE_HOME="$HOME/$FILE_BASE"
+        echo "Checking state of $FILE_HOME"
 
-        if [ -L $FILE_HOME ]; then
-                rm $FILE_HOME
+	find ~ -xtype l -delete
+
+        if [ -L "$FILE_HOME" ]; then
+		echo "Removing existing symlink: $FILE_HOME"
+                unlink $FILE_HOME
         fi
 
-        if [ -e $FILE_HOME ]; then
+        if [ -e "$FILE_HOME" ]; then
+		echo "Moving existing file: $FILE_HOME to $SCRIPT_DIR/$OLD_CONFIG_DIR/$DATETIME"
                 mv $FILE_HOME $SCRIPT_DIR/$OLD_CONFIG_DIR/$DATETIME
         fi
 
-        ln -s $SCRIPT_DIR/$CURRENT_CONFIG_DIR/$FILE ~
+	echo "Creating symlink: $SCRIPT_DIR/$FILE"
+        ln -s $SCRIPT_DIR/$FILE ~
 done
 
 xrdb -merge ~/.Xresources
