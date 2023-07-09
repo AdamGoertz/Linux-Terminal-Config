@@ -1,3 +1,5 @@
+#! /bin/bash
+
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 OLD_CONFIG_DIR="old_configs"
 DATETIME=$(date +%F__%H_%M_%S)
