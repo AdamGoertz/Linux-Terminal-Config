@@ -6,7 +6,7 @@ DATETIME=$(date +%F__%H_%M_%S)
 
 shopt -s dotglob
 
-sudo apt update && sudo apt install -y tmux xclip vim xterm x11-xserver-utils
+sudo apt update && sudo apt install -y tmux npm xclip neovim xterm x11-xserver-utils
 
 mkdir -p $SCRIPT_DIR/$OLD_CONFIG_DIR/$DATETIME
 
