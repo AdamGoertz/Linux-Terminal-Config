@@ -1,5 +1,7 @@
 old_configs/
-configs/.vim/undodir
-configs/.config/pulse
-configs/.config/configstore
+configs/.config/*
+!configs/.config/nvim
+configs/.vim/*
+!configs/.vim/colors
+*.log
 

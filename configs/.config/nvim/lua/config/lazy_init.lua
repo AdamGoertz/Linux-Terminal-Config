@@ -62,7 +62,7 @@ require("lazy").setup({
             builtin.grep_string({ search = word })
         end)
         vim.keymap.set('n', '<leader>fg', function()
-            builtin.grep_string({ search = vim.fn.input("Grep > ") })
+            builtin.live_grep({})
         end)
         vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
     end

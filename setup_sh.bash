@@ -6,7 +6,7 @@ DATETIME=$(date +%F__%H_%M_%S)
 
 shopt -s dotglob
 
-sudo apt update && sudo apt install -y tmux xclip vim xterm x11-xserver-utils
+sudo apt update && sudo apt install -y tmux xclip vim xterm x11-xserver-utils ripgrep
 
 NEOVIM_INSTALLED=$(apt list --installed | grep nvim | wc -l)
 
