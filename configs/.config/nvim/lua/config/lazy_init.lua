@@ -101,6 +101,13 @@ require("lazy").setup({
     end
 },
 
+-- Editor
+{
+    'numToStr/Comment.nvim',
+    opts = {},
+    lazy = false,
+},
+
 -- LSP
 {
     "neovim/nvim-lspconfig",
