@@ -25,6 +25,6 @@ vim.opt.signcolumn = "yes"
 
 vim.opt.updatetime = 50
 
-vim.opt.colorcolumn = "88"
+vim.opt.colorcolumn = "80"
 
 vim.opt.ttimeoutlen = 5
