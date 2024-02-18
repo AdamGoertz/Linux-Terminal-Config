@@ -6,19 +6,19 @@ DATETIME=$(date +%F__%H_%M_%S)
 
 shopt -s dotglob
 
-sudo apt update && sudo apt install -y tmux xclip vim xterm x11-xserver-utils ripgrep
+sudo apt-get update && sudo apt-get install -y xclip vim xterm x11-xserver-utils
 
-NEOVIM_INSTALLED=$(apt list --installed | grep nvim | wc -l)
+# Neovim
+$SCRIPT_DIR/install_scripts/nvim.bash
 
-if [[ $NEOVIM_INSTALLED -lt 1 ]] || [[ $FORCE_INSTALL_NVIM == "1" ]]; then
-    $SCRIPT_DIR/install_scripts/nvim.bash
-else
-    echo "Neovim installation found. Using existing installation"
-fi
+# Fonts
+$SCRIPT_DIR/install_scripts/fonts.bash
 
+# tmux
+$SCRIPT_DIR/install_scripts/tmux.bash
+
+# Dotfiles
 mkdir -p $SCRIPT_DIR/$OLD_CONFIG_DIR/$DATETIME
-
-# TODO: Add config directories like .vim
 
 for FILE in $CURRENT_CONFIG_DIR/*; do
     FILE_BASE=$(basename $FILE)
