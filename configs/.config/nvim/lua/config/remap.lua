@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
--- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>fe", vim.cmd.Ex)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -12,12 +12,11 @@ vim.keymap.set("n", "N", "Nzzzv")
 
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
 -- next greatest remap ever : asbjornHaland
 vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
-
-vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
@@ -33,11 +32,11 @@ vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd(":w")
 end)
 
-vim.keymap.set("n", "<C-h>", "<C-w>h")
-vim.keymap.set("n", "<C-j>", "<C-w>j")
-vim.keymap.set("n", "<C-k>", "<C-w>k")
-vim.keymap.set("n", "<C-l>", "<C-w>l")
-
 for i = 1,9 do
     vim.keymap.set("n", string.format("\\%d", i), string.format("%dgt", i))
 end
+
+vim.api.nvim_set_keymap("n", "<C-h>", [[<cmd>lua require('tmux').move_left()<cr>]], {})
+vim.api.nvim_set_keymap("n", "<C-j>", [[<cmd>lua require('tmux').move_down()<cr>]], {})
+vim.api.nvim_set_keymap("n", "<C-k>", [[<cmd>lua require('tmux').move_up()<cr>]], {})
+vim.api.nvim_set_keymap("n", "<C-l>", [[<cmd>lua require('tmux').move_right()<cr>]], {})
