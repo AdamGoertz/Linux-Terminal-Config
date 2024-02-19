@@ -23,7 +23,8 @@ require("lazy").setup({
                     colors.border = "#565f89"
                 end,
                 on_highlights = function(highlights, colors)
-                    highlights.LineNr.fg = colors.blue5
+                    highlights.LineNr.fg = colors.dark5
+                    highlights.Comment.fg = colors.dark5
                 end
             })
             vim.cmd([[colorscheme tokyonight]])
