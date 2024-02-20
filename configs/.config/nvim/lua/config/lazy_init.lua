@@ -42,34 +42,20 @@ require("lazy").setup({
 		"nvim-lualine/lualine.nvim",
 		event = "VeryLazy",
 		config = function()
-			local harpoon = require("harpoon")
-            local state = {
-                ["bufnr"] = nil,
-                ["mark_idx"] = nil,
-            }
-
-            harpoon._extensions:add_listener({
-                ["SELECT"] = function(ev)
-                    state.mark_idx = ev.idx
-                end,
-                ["NAVIGATE"] = function(ev)
-                    state.bufnr = ev.buffer
-                end,
-            })
-
 			local function harpoon_component()
-				local total_marks = harpoon:list():length()
-
-				if total_marks == 0 then
-					return ""
-				end
-
+                local harpoon = require("harpoon")
 				local current_mark = "—"
                 local current_buf = vim.api.nvim_get_current_buf()
 
-				if state.mark_idx ~= nil and state.bufnr == current_buf then
-					current_mark = tostring(state.mark_idx)
-				end
+				local total_marks = harpoon:list():length()
+                for i = 1,total_marks do
+                    local item = harpoon:list():get(i)
+                    local mark_bufnr = vim.fn.bufnr(item.value)
+                    if mark_bufnr ~= -1 and mark_bufnr == current_buf then
+                        current_mark = tostring(i)
+                        break
+                    end
+                end
 
 				return string.format("󱡅 %s/%d", current_mark, total_marks)
 			end
