@@ -39,16 +39,16 @@ require("lazy").setup({
     },
     -- UI
     {
-		"nvim-lualine/lualine.nvim",
-		event = "VeryLazy",
-		config = function()
-			local function harpoon_component()
+        "nvim-lualine/lualine.nvim",
+        event = "VeryLazy",
+        config = function()
+            local function harpoon_component()
                 local harpoon = require("harpoon")
-				local current_mark = "—"
+                local current_mark = "—"
                 local current_buf = vim.api.nvim_get_current_buf()
 
-				local total_marks = harpoon:list():length()
-                for i = 1,total_marks do
+                local total_marks = harpoon:list():length()
+                for i = 1, total_marks do
                     local item = harpoon:list():get(i)
                     local mark_bufnr = vim.fn.bufnr(item.value)
                     if mark_bufnr ~= -1 and mark_bufnr == current_buf then
@@ -57,35 +57,51 @@ require("lazy").setup({
                     end
                 end
 
-				return string.format("󱡅 %s/%d", current_mark, total_marks)
-			end
+                return string.format("󱡅 %s/%d", current_mark, total_marks)
+            end
 
-			require("lualine").setup({
-				options = {
-					theme = "tokyonight",
-					globalstatus = true,
-					component_separators = { left = "", right = "" },
-					section_separators = { left = "█", right = "█" },
-				},
-				sections = {
-					lualine_b = {
-						harpoon_component,
-						"diff",
-						"diagnostics",
-					},
-					lualine_c = {
-						{ "filename", path = 1 },
-					},
-					lualine_x = {
-						"filetype",
-					},
-				},
-			})
-		end,
-	},
+            require("lualine").setup({
+                options = {
+                    theme = "tokyonight",
+                    globalstatus = true,
+                    component_separators = { left = "", right = "" },
+                    section_separators = { left = "█", right = "█" },
+                },
+                sections = {
+                    lualine_b = {
+                        harpoon_component,
+                        "diff",
+                        "diagnostics",
+                    },
+                    lualine_c = {
+                        { "filename", path = 1 },
+                    },
+                    lualine_x = {
+                        "filetype",
+                    },
+                },
+            })
+        end,
+    },
 
     -- tmux integration
-    "nathom/tmux.nvim",
+    {
+        'alexghergh/nvim-tmux-navigation',
+        config = function()
+            local nvim_tmux_nav = require('nvim-tmux-navigation')
+
+            nvim_tmux_nav.setup {
+                disable_when_zoomed = true -- defaults to false
+            }
+
+            vim.keymap.set('n', "<C-h>", nvim_tmux_nav.NvimTmuxNavigateLeft)
+            vim.keymap.set('n', "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown)
+            vim.keymap.set('n', "<C-k>", nvim_tmux_nav.NvimTmuxNavigateUp)
+            vim.keymap.set('n', "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
+            vim.keymap.set('n', "<C-\\>", nvim_tmux_nav.NvimTmuxNavigateLastActive)
+            -- vim.keymap.set('n', "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateNext)
+        end,
+    },
 
     -- Git
     {
@@ -208,7 +224,7 @@ require("lazy").setup({
                 columns = {
                     "icon",
                     "size",
-                  },
+                },
                 keymaps = {
                     ["g?"] = "actions.show_help",
                     ["<CR>"] = "actions.select",
@@ -242,7 +258,7 @@ require("lazy").setup({
             end)
 
             vim.keymap.set("n", "[t", function()
-               require("trouble").next({ skip_groups = true, jump = true });
+                require("trouble").next({ skip_groups = true, jump = true });
             end)
 
             vim.keymap.set("n", "]t", function()

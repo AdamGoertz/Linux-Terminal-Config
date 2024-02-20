@@ -38,11 +38,6 @@ for i = 1,9 do
     vim.keymap.set("n", string.format("\\%d", i), string.format("%dgt", i))
 end
 
-vim.api.nvim_set_keymap("n", "<C-h>", [[<cmd>lua require('tmux').move_left()<cr>]], {})
-vim.api.nvim_set_keymap("n", "<C-j>", [[<cmd>lua require('tmux').move_down()<cr>]], {})
-vim.api.nvim_set_keymap("n", "<C-k>", [[<cmd>lua require('tmux').move_up()<cr>]], {})
-vim.api.nvim_set_keymap("n", "<C-l>", [[<cmd>lua require('tmux').move_right()<cr>]], {})
-
 vim.keymap.set("n", "<leader>nc", "<cmd>e ~/.config/nvim<CR>")
 
 vim.keymap.set("n", "H", "^")
