@@ -1,4 +1,6 @@
 vim.g.mapleader = " "
+
+-- Overridden by Oil
 vim.keymap.set("n", "<leader>fe", vim.cmd.Ex)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -42,3 +44,6 @@ vim.api.nvim_set_keymap("n", "<C-k>", [[<cmd>lua require('tmux').move_up()<cr>]]
 vim.api.nvim_set_keymap("n", "<C-l>", [[<cmd>lua require('tmux').move_right()<cr>]], {})
 
 vim.keymap.set("n", "<leader>nc", "<cmd>e ~/.config/nvim<CR>")
+
+vim.keymap.set("n", "H", "^")
+vim.keymap.set("n", "L", "$")

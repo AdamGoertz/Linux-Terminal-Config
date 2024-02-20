@@ -34,9 +34,69 @@ require("lazy").setup({
             keywords = { italic = false },
             -- Background styles. Can be "dark", "transparent" or "normal"
             sidebars = "dark", -- style for sidebars, see below
-            floats = "dark", -- style for floating windows
+            floats = "dark",   -- style for floating windows
         },
     },
+    -- UI
+    {
+		"nvim-lualine/lualine.nvim",
+		event = "VeryLazy",
+		config = function()
+			local harpoon = require("harpoon")
+            local state = {
+                ["bufnr"] = nil,
+                ["mark_idx"] = nil,
+            }
+
+            harpoon._extensions:add_listener({
+                ["SELECT"] = function(ev)
+                    state.mark_idx = ev.idx
+                end,
+                ["NAVIGATE"] = function(ev)
+                    state.bufnr = ev.buffer
+                end,
+            })
+
+			local function harpoon_component()
+				local total_marks = harpoon:list():length()
+
+				if total_marks == 0 then
+					return ""
+				end
+
+				local current_mark = "—"
+                local current_buf = vim.api.nvim_get_current_buf()
+
+				if state.mark_idx ~= nil and state.bufnr == current_buf then
+					current_mark = tostring(state.mark_idx)
+				end
+
+				return string.format("󱡅 %s/%d", current_mark, total_marks)
+			end
+
+			require("lualine").setup({
+				options = {
+					theme = "tokyonight",
+					globalstatus = true,
+					component_separators = { left = "", right = "" },
+					section_separators = { left = "█", right = "█" },
+				},
+				sections = {
+					lualine_b = {
+						harpoon_component,
+						"diff",
+						"diagnostics",
+					},
+					lualine_c = {
+						{ "filename", path = 1 },
+					},
+					lualine_x = {
+						"filetype",
+					},
+				},
+			})
+		end,
+	},
 
     -- tmux integration
     "nathom/tmux.nvim",
@@ -47,6 +107,54 @@ require("lazy").setup({
         config = function()
             vim.keymap.set("n", "<leader>git", vim.cmd.Git)
         end,
+    },
+    {
+        "lewis6991/gitsigns.nvim",
+        config = function()
+            require('gitsigns').setup {
+                signs                        = {
+                    add          = { text = '│' },
+                    change       = { text = '│' },
+                    delete       = { text = '_' },
+                    topdelete    = { text = '‾' },
+                    changedelete = { text = '~' },
+                    untracked    = { text = '┆' },
+                },
+                signcolumn                   = true,  -- Toggle with `:Gitsigns toggle_signs`
+                numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
+                linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
+                word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
+                watch_gitdir                 = {
+                    follow_files = true
+                },
+                auto_attach                  = true,
+                attach_to_untracked          = false,
+                current_line_blame           = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+                current_line_blame_opts      = {
+                    virt_text = true,
+                    virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+                    delay = 1000,
+                    ignore_whitespace = false,
+                    virt_text_priority = 100,
+                },
+                current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+                sign_priority                = 6,
+                update_debounce              = 100,
+                status_formatter             = nil,   -- Use default
+                max_file_length              = 40000, -- Disable if file is longer than this (in lines)
+                preview_config               = {
+                    -- Options passed to nvim_open_win
+                    border = 'single',
+                    style = 'minimal',
+                    relative = 'cursor',
+                    row = 0,
+                    col = 1
+                },
+                yadm                         = {
+                    enable = false
+                },
+            }
+        end
     },
 
     -- File search
@@ -85,6 +193,55 @@ require("lazy").setup({
             vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
         end
     },
+    {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        config = function()
+            local harpoon = require("harpoon")
+
+            harpoon:setup()
+
+            vim.keymap.set("n", "<leader>ha", function() harpoon:list():append() end)
+            vim.keymap.set("n", "<leader>ho", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+            for i = 1, 4 do
+                vim.keymap.set("n", string.format("<leader>%d", i), function() harpoon:list():select(i) end)
+            end
+        end
+        ,
+    },
+    {
+        'stevearc/oil.nvim',
+        opts = {},
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = function()
+            require("oil").setup({
+                columns = {
+                    "icon",
+                    "size",
+                  },
+                keymaps = {
+                    ["g?"] = "actions.show_help",
+                    ["<CR>"] = "actions.select",
+                    ["<C-v>"] = "actions.select_vsplit",
+                    ["<C-s>"] = "actions.select_split",
+                    ["<C-t>"] = "actions.select_tab",
+                    ["<BS>"] = "actions.parent",
+                    ["_"] = "actions.open_cwd",
+                    ["gs"] = "actions.change_sort",
+                    ["g."] = "actions.toggle_hidden",
+                    ["g\\"] = "actions.toggle_trash",
+                },
+                delete_to_trash = false,
+                constrain_cursor = "editable",
+            })
+            vim.keymap.set("n", "<leader>fe", "<cmd>Oil --float<CR>")
+        end
+    },
+
 
     -- Diagnostic
     {
@@ -99,7 +256,7 @@ require("lazy").setup({
             end)
 
             vim.keymap.set("n", "[t", function()
-                require("trouble").next({ skip_groups = true, jump = true });
+               require("trouble").next({ skip_groups = true, jump = true });
             end)
 
             vim.keymap.set("n", "]t", function()
