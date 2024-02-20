@@ -10,7 +10,7 @@ if [[ $NEOVIM_INSTALLED -lt 1 ]] || [[ $FORCE_INSTALL_NVIM == "1" ]]; then
     cmake -S cmake.deps -B .deps -D CMAKE_BUILD_TYPE=Release
     cmake --build .deps
     cmake -B build -D CMAKE_BUILD_TYPE=Release
-    cmake --build build
+    cmake --build build -j$(nproc)
     cd build && cpack -G DEB && sudo dpkg -i --force-overwrite nvim-linux64.deb
 else
     echo "Neovim installation found. Using existing installation"

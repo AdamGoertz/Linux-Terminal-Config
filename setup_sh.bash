@@ -6,16 +6,34 @@ DATETIME=$(date +%F__%H_%M_%S)
 
 shopt -s dotglob
 
-sudo apt-get update && sudo apt-get install -y xclip vim xterm x11-xserver-utils
+sudo apt-get update && sudo apt-get install -y vim xterm
+
+in_docker () {
+    grep -q docker /proc/1/cgroup
+}
+
+if ! in_docker ; then
+    sudo apt-get update && sudo apt-get install -y xclip x11-xserver-utils
+else
+    echo "Skipping X package installs inside docker"
+fi
 
 # Neovim
 $SCRIPT_DIR/install_scripts/nvim.bash
 
 # Fonts
-$SCRIPT_DIR/install_scripts/fonts.bash
+if ! in_docker ; then
+    $SCRIPT_DIR/install_scripts/fonts.bash
+else
+    echo "Skipping font install inside of docker"
+fi
 
 # tmux
-$SCRIPT_DIR/install_scripts/tmux.bash
+if ! in_docker ; then
+    $SCRIPT_DIR/install_scripts/tmux.bash
+else
+    echo "Skipping tmux install inside of docker"
+fi
 
 # Dotfiles
 mkdir -p $SCRIPT_DIR/$OLD_CONFIG_DIR/$DATETIME
@@ -40,5 +58,9 @@ for FILE in $CURRENT_CONFIG_DIR/*; do
     ln -s $SCRIPT_DIR/$FILE ~
 done
 
-xrdb -merge ~/.Xresources
+if ! in_docker ; then
+    xrdb -merge ~/.Xresources
+else
+    echo "Skipping xrdb merge inside docker"
+fi
 
