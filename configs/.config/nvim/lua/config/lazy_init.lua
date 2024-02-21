@@ -107,8 +107,9 @@ require("lazy").setup({
     {
         "tpope/vim-fugitive",
         config = function()
-            vim.keymap.set("n", "<leader>git", vim.cmd.Git)
-            vim.keymap.set("n", "<leader>dif", "<cmd>Git difftool<CR>")
+            vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
+            vim.keymap.set("n", "<leader>gd", "<cmd>Git difftool<CR>")
+            vim.keymap.set("n", "<leader>gm", "<cmd>Git mergetool<CR>")
         end,
     },
     {
@@ -173,6 +174,18 @@ require("lazy").setup({
         },
         config = function()
             require('telescope').setup({
+                defaults = {
+                    vimgrep_arguments = {
+                        'rg',
+                        '--color=never',
+                        '--no-heading',
+                        '--with-filename',
+                        '--line-number',
+                        '--column',
+                        '--smart-case',
+                        '--hidden',
+                    },
+                },
                 pickers = {
                     find_files = {
                         hidden = true,
@@ -225,6 +238,9 @@ require("lazy").setup({
                 columns = {
                     "icon",
                     "size",
+                },
+                view_options = {
+                    show_hidden = true,
                 },
                 keymaps = {
                     ["g?"] = "actions.show_help",
