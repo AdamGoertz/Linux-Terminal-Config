@@ -15,7 +15,7 @@ if ! command_version_ge python3 "3.5" ; then
 fi
 
 wget -nc -O /tmp/gdb-14.1.tar.gz https://ftp.gnu.org/gnu/gdb/gdb-14.1.tar.gz
-tar xzkf /tmp/gdb-14.1.tar.gz -C /tmp
+tar xzkf /tmp/gdb-14.1.tar.gz -C /tmp &> /dev/null
 cd /tmp/gdb-14.1
 ./configure --prefix=$HOME/.local --with-python=$(which python3)
 make -j$(nproc)
