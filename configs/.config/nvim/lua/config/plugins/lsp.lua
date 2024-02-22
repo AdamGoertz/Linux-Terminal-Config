@@ -8,6 +8,7 @@ return {
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-cmdline",
+            "folke/neodev.nvim",
             "hrsh7th/nvim-cmp",
             "j-hui/fidget.nvim",
             "L3MON4D3/LuaSnip",
@@ -40,6 +41,9 @@ return {
                 {},
                 vim.lsp.protocol.make_client_capabilities(),
                 cmp_lsp.default_capabilities())
+
+            require("neodev").setup({
+                library = { plugins = { "nvim-dap-ui" }, types = true }, })
 
             require("fidget").setup({})
             require("mason").setup()
@@ -90,6 +94,7 @@ return {
                 sources = cmp.config.sources({
                     { name = 'nvim_lsp' },
                     { name = 'luasnip' },
+                    { name = 'neodev' },
                 }, {
                     { name = 'buffer' },
                 })

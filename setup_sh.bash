@@ -35,6 +35,9 @@ else
     echo "Skipping tmux install inside of docker"
 fi
 
+# gdb
+$SCRIPT_DIR/install_scripts/gdb.bash
+
 # Dotfiles
 mkdir -p $SCRIPT_DIR/$OLD_CONFIG_DIR/$DATETIME
 
