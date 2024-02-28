@@ -14,6 +14,8 @@ if ! command_version_ge python3 "3.5" ; then
     exit 1
 fi
 
+sudo apt install -y libgmp-dev libmpfr-dev
+
 wget -nc -O /tmp/gdb-14.1.tar.gz https://ftp.gnu.org/gnu/gdb/gdb-14.1.tar.gz
 tar xzkf /tmp/gdb-14.1.tar.gz -C /tmp &> /dev/null
 cd /tmp/gdb-14.1
