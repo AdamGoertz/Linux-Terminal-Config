@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo apt-get update && sudo apt-get install -y cmake gettext ripgrep
+sudo apt-get update && sudo apt-get install -y cmake gettext ripgrep unzip python3-venv
 
 NEOVIM_INSTALLED=$(apt list --installed | grep nvim | wc -l)
 
