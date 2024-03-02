@@ -46,6 +46,9 @@ return {
                     stopAtBeginningOfMainSubprogram = false,
                 },
             }
+            dap.configurations.c = dap.configurations.cpp
+            dap.configurations.rust = dap.configurations.cpp
+            dap.configurations.zig = dap.configurations.cpp
         end,
     },
     {
