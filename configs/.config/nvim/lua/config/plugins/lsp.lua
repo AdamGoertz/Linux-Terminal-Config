@@ -62,6 +62,9 @@ return {
         sources = {
           -- Formatting
           null_ls.builtins.formatting.black,
+          null_ls.builtins.formatting.black.with({
+            extra_args = {"--line-length", "80"}
+          }),
 
           -- Code actions for staging hunks, blame, etc
           null_ls.builtins.code_actions.gitsigns,
@@ -133,6 +136,26 @@ return {
           function(server_name) -- default handler (optional)
             require("lspconfig")[server_name].setup {
               capabilities = capabilities
+            }
+          end,
+
+          ["pylsp"] = function()
+            require("lspconfig").pylsp.setup({
+              -- plugins = {
+              --   pycodestyle = {
+              --     ["max-line-length"] = 80,
+              --   },
+              -- },
+            })
+          end,
+
+          ["clangd"] = function()
+            require("lspconfig").clangd.setup {
+              capabilities = capabilities,
+              cmd = {
+                "clangd",
+                "--offset-encoding=utf-16",
+              },
             }
           end,
 
