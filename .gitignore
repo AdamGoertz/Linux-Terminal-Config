@@ -1,0 +1,10 @@
+old_configs/
+configs/.config/*
+!configs/.config/nvim
+configs/.vim/*
+!configs/.vim/colors
+configs/.tmux/*
+
+
+*.log
+
