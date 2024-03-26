@@ -4,6 +4,7 @@ configs/.config/*
 configs/.vim/*
 !configs/.vim/colors
 configs/.tmux/*
+bin/*
 
 
 *.log
