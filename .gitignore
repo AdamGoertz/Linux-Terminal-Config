@@ -1,3 +1,11 @@
 old_configs/
-configs/.vim/.netrwhist
+configs/.config/*
+!configs/.config/nvim
+configs/.vim/*
+!configs/.vim/colors
+configs/.tmux/*
+bin/*
+
+
+*.log
 
