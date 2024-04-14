@@ -21,6 +21,9 @@ fi
 # Neovim
 $SCRIPT_DIR/install_scripts/nvim.bash
 
+# Atuin
+$SCRIPT_DIR/install_scripts/atuin.bash
+
 # Fonts
 if ! in_docker ; then
     $SCRIPT_DIR/install_scripts/fonts.bash
