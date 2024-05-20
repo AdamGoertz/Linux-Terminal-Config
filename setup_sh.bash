@@ -70,3 +70,6 @@ else
     echo "Skipping xrdb merge inside docker"
 fi
 
+ADD_LOCAL_BIN_PATH='export PATH=~/.local/bin:$PATH'
+grep -q -F "$ADD_LOCAL_BIN_PATH" "~/.bashrc" || echo $ADD_LOCAL_BIN_PATH >> ~/.bashrc
+
