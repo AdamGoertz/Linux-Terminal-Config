@@ -6,7 +6,7 @@ BIN_DIR=$SCRIPT_DIR/../bin/
 NEOVIM_INSTALLED=$(apt list --installed | grep neovim | wc -l)
 
 if [[ $NEOVIM_INSTALLED -lt 1 ]] || [[ $FORCE_INSTALL_NVIM == "1" ]]; then
-    sudo apt-get update && sudo apt-get install -y cmake gettext ripgrep unzip python3-venv
+    sudo apt-get update && sudo apt-get install -y cmake gettext ripgrep fd-find unzip python3-venv
 
     if [[ ! -f $BIN_DIR/nvim-linux64.deb ]]; then
       git clone --branch v0.9.5 --single-branch https://github.com/neovim/neovim.git ~/.neovim
