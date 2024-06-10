@@ -11,6 +11,7 @@ tar xzkf /tmp/difftastic-0.58.0.tar.gz -C $HOME/.local/bin &> /dev/null
 
 git config --global user.name "Adam Goertz"
 git config --global alias.graph "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'"
+git config --global alias.dlog "-c diff.external=difft log -p --ext-diff"
 git config --global core.editor "vim"
 git config --global diff.tool "difftastic"
 git config --global difftool.prompt "false"
