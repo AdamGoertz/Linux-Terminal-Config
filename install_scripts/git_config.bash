@@ -6,7 +6,7 @@
 
 sudo apt-get update && sudo apt-get install git
 
-wget -nc -O /tmp/difftastic-0.58.0.tar.gz https://github.com/Wilfred/difftastic/releases/download/0.58.0/difft-aarch64-unknown-linux-gnu.tar.gz 
+wget -nc -O /tmp/difftastic-0.58.0.tar.gz https://github.com/Wilfred/difftastic/releases/download/0.58.0/difft-x86_64-unknown-linux-gnu.tar.gz 
 tar xzkf /tmp/difftastic-0.58.0.tar.gz -C $HOME/.local/bin &> /dev/null
 
 git config --global user.name "Adam Goertz"
@@ -15,6 +15,7 @@ git config --global alias.dlog "-c diff.external=difft log -p --ext-diff"
 git config --global core.editor "vim"
 git config --global diff.tool "difftastic"
 git config --global difftool.prompt "false"
-git config --global difftool difftastic.cmd "difft $LOCAL $REMOTE"
+git config --global difftool.difftastic.cmd 'difft $LOCAL $REMOTE'
 git config --global pager.difftool "true"
+git config --global merge.conflictstyle diff3
 
