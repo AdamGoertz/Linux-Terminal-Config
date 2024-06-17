@@ -76,3 +76,6 @@ fi
 ADD_LOCAL_BIN_PATH='export PATH=$HOME/.local/bin:$PATH'
 grep -q -F "$ADD_LOCAL_BIN_PATH" "~/.bashrc" || echo $ADD_LOCAL_BIN_PATH >> ~/.bashrc
 
+if ! in_docker ; then
+    echo "Reminder: use ctrl-A + I in tmux to install plugins."
+fi
