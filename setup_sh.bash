@@ -21,6 +21,12 @@ fi
 # Neovim
 $SCRIPT_DIR/install_scripts/nvim.bash
 
+# Git
+$SCRIPT_DIR/install_scripts/git_config.bash
+
+# Atuin
+$SCRIPT_DIR/install_scripts/atuin.bash
+
 # Fonts
 if ! in_docker ; then
     $SCRIPT_DIR/install_scripts/fonts.bash
@@ -66,4 +72,7 @@ if ! in_docker ; then
 else
     echo "Skipping xrdb merge inside docker"
 fi
+
+ADD_LOCAL_BIN_PATH='export PATH=$HOME/.local/bin:$PATH'
+grep -q -F "$ADD_LOCAL_BIN_PATH" "~/.bashrc" || echo $ADD_LOCAL_BIN_PATH >> ~/.bashrc
 
