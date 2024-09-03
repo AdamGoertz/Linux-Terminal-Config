@@ -4,7 +4,8 @@
 # some config settings unchanged (such as user.email), which we might want to 
 # set differently depending on the context (e.g. work or personal).
 
-sudo apt-get update && sudo apt-get install git
+sudo apt-get update
+# sudo apt-get install -y git
 
 wget -nc -O /tmp/difftastic-0.58.0.tar.gz https://github.com/Wilfred/difftastic/releases/download/0.58.0/difft-x86_64-unknown-linux-gnu.tar.gz 
 tar xzkf /tmp/difftastic-0.58.0.tar.gz -C $HOME/.local/bin &> /dev/null
