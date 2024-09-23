@@ -5,6 +5,7 @@ configs/.vim/*
 !configs/.vim/colors
 configs/.tmux/*
 bin/*
+!configs/.config/atuin
 
 
 *.log
