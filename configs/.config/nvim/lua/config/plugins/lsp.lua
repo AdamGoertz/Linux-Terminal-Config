@@ -63,7 +63,7 @@ return {
           -- Formatting
           null_ls.builtins.formatting.black,
           null_ls.builtins.formatting.black.with({
-            extra_args = {"--line-length", "80"}
+            extra_args = { "--line-length", "80" }
           }),
 
           -- Code actions for staging hunks, blame, etc
@@ -85,7 +85,7 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-        "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-cmdline",
       "folke/neodev.nvim",
       "hrsh7th/nvim-cmp",
       "j-hui/fidget.nvim",
@@ -141,11 +141,19 @@ return {
 
           ["pylsp"] = function()
             require("lspconfig").pylsp.setup({
-              -- plugins = {
-              --   pycodestyle = {
-              --     ["max-line-length"] = 80,
-              --   },
-              -- },
+              capabilities = capabilities,
+              settings = {
+                pylsp = {
+                  plugins = {
+                    pycodestyle = {
+                      enabled = false,
+                    },
+                    yapf = {
+                      enabled = false,
+                    },
+                  },
+                }
+              }
             })
           end,
 
