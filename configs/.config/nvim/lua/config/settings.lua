@@ -28,3 +28,5 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 
 vim.opt.ttimeoutlen = 5
+
+vim.opt.cursorline = true
