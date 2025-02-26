@@ -47,7 +47,7 @@ $SCRIPT_DIR/install_scripts/gdb.bash
 # Dotfiles
 mkdir -p $SCRIPT_DIR/$OLD_CONFIG_DIR/$DATETIME
 
-for FILE in $CURRENT_CONFIG_DIR/*; do
+for FILE in $SCRIPT_DIR/$CURRENT_CONFIG_DIR/*; do
     FILE_BASE=$(basename $FILE)
     echo "Updating: $FILE_BASE..."
     FILE_HOME="$HOME/$FILE_BASE"
@@ -63,8 +63,8 @@ for FILE in $CURRENT_CONFIG_DIR/*; do
             mv $FILE_HOME $SCRIPT_DIR/$OLD_CONFIG_DIR/$DATETIME
     fi
 
-	echo "Creating symlink: $SCRIPT_DIR/$FILE"
-    ln -s $SCRIPT_DIR/$FILE ~
+	echo "Creating symlink: $FILE"
+    ln -s $FILE ~
 done
 
 if ! in_docker ; then
@@ -77,5 +77,5 @@ ADD_LOCAL_BIN_PATH='export PATH=$HOME/.local/bin:$PATH'
 grep -q -F "$ADD_LOCAL_BIN_PATH" "$HOME/.bashrc" || echo $ADD_LOCAL_BIN_PATH >> ~/.bashrc
 
 if ! in_docker ; then
-    echo "Reminder: use ctrl-A + I in tmux to install plugins."
+    echo "Reminder: use ctrl-a + I in tmux to install plugins."
 fi
